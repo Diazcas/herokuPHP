@@ -23,6 +23,7 @@
     print_r($array);
     var_dump($paises);
 
+    /*
     $url = parse_url(getenv("mysql://ba7db65152eaec:84bd82d1@us-cdbr-east-03.cleardb.com/heroku_fd5e5ffbd5dfc59?reconnect=true"));
 
     $server = $url["us-cdbr-east-03.cleardb.com"];
@@ -31,5 +32,5 @@
     $db = substr($url["path"], 1);
 
     $conn = new mysqli($server, $username, $password, $db);
-
+    */
 ?>
