@@ -22,35 +22,14 @@
 
     print_r($array);
     var_dump($paises);
-    
 
-    $dbopts = parse_url(getenv('http://localhost/phpmyadmin/db_structure.php?server=1&db=dbprueba_heroku'));
-    $app->register(new Csanquer\Silex\PdoServiceProvider\Provider\PDOServiceProvider('pdo'),
-               array(
-                'pdo.server' => array(
-                   'driver'   => 'pgsql',
-                   'user' => $dbopts["herokuAdmin"],
-                   'password' => $dbopts["12345"],
-                   'host' => $dbopts["localhost"],
-                   'port' => $dbopts["port"],
-                   'dbname' => ltrim($dbopts["path"],'/dbprueba_heroku')
-                   )
-               )
-);
+    $url = parse_url(getenv("mysql://ba7db65152eaec:84bd82d1@us-cdbr-east-03.cleardb.com/heroku_fd5e5ffbd5dfc59?reconnect=true"));
 
-$app->get('/db/', function() use($app) {
-    $st = $app['pdo']->prepare('SELECT name FROM test_table');
-    $st->execute();
-  
-    $names = array();
-    while ($row = $st->fetch(PDO::FETCH_ASSOC)) {
-      $app['monolog']->addDebug('Row ' . $row['name']);
-      $names[] = $row;
-    }
-  
-    return $app['twig']->render('database.twig', array(
-      'names' => $names
-    ));
-  });
+    $server = $url["us-cdbr-east-03.cleardb.com"];
+    $username = $url["ba7db65152eaec"];
+    $password = $url["84bd82d1"];
+    $db = substr($url["path"], 1);
+
+    $conn = new mysqli($server, $username, $password, $db);
 
 ?>
