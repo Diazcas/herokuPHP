@@ -22,7 +22,6 @@
 
     print_r($array);
     var_dump($paises);
-    var_dump($hola)
 
 
 ?>
